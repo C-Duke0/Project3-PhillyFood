@@ -3,6 +3,17 @@ An analysis of the types of food in Philadelphia
 
 ![images (1)](https://github.com/C-Duke0/Project3-PhillyFood/assets/162597320/ddec3b91-1d9f-4e2b-931f-8df4d01e0fac)
 
+## Project Contributors:
+- Michael Andia
+  
+- Blake Bartlett
+  
+- Christopher Duke
+  
+- Tim McCarthy
+  
+- Krissina Wells
+
 ## Project Overview
 
 The Philadelphia Restaurant Cuisine project aims to visualize restaurant cuisines in Philadelphia. By leveraging data from Yelp and GeoJSON, this project provides interactive maps and other charts that highlight the top cuisines in the area, allowing users to explore the culinary landscape of the city.
