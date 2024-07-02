@@ -1,15 +1,33 @@
 create table yelp_restaurants (
-	Business_id varchar(30) not null primary key,
-	Name varchar(30) not null,
-	Address varchar(30) not null,
-	City varchar(30) not null,
-	State varchar(30) not null,
-	Postal_code int,
-	Latitude float not null,
-	Longitude float,
-	Stars real,
-	Review_count int,
-	Attributes JSON,
-	Categories varchar(30)
+	business_id varchar(30) not null primary key,
+	name varchar(50) not null,
+	address varchar(100) not null,
+	city varchar(30) not null,
+	state varchar(30) not null,
+	postal_code int,
+	latitude float not null,
+	longitude float,
+	stars real,
+	review_count int,
+	attributes JSONB,
+	Categories varchar(100)
 );
 
+
+ALTER TABLE yelp_restaurants ALTER COLUMN attributes TYPE TEXT;
+
+COPY yelp_restaurants (
+  business_id,
+  name,
+  address,
+  city,
+  state,
+  postal_code,
+  latitude,
+  longitude,
+  stars,
+  review_count,
+  attributes,
+  categories
+) FROM '/Users/michael/Bootcamp Repos/Project3-PhillyFood/cleaned_dataset.csv' 
+CSV HEADER;
