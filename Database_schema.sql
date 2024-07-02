@@ -14,7 +14,6 @@ create table yelp_restaurants (
 	price_rating int
 );
 
-
 ALTER TABLE yelp_restaurants ALTER COLUMN attributes TYPE TEXT;
 
 COPY yelp_restaurants (
