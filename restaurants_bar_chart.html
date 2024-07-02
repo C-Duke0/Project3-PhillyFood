@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bokeh Plot</title>
+    <style>
+      html, body {
+        box-sizing: border-box;
+        display: flow-root;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.4.0.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div id="dfaa6a54-556f-40f8-906d-f3be782c160e" data-root-id="p1507" style="display: contents;"></div>
+  
+    <script type="application/json" id="e040d9c3-3599-4eae-a3b8-7c4717db7a7e">
+      {"a077360d-988e-49a5-a954-c1b808892552":{"version":"3.4.0","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1507","attributes":{"width":1200,"height":800,"x_range":{"type":"object","name":"FactorRange","id":"p1516","attributes":{"factors":["American","Italian","European","Japanese","SE Asian","Chinese","Mexican","Indian","Bakery","Middle Eastern","Cheesesteaks","Korean","Jewish","BBQ","African"]}},"y_range":{"type":"object","name":"DataRange1d","id":"p1509","attributes":{"start":0}},"x_scale":{"type":"object","name":"CategoricalScale","id":"p1517"},"y_scale":{"type":"object","name":"LinearScale","id":"p1518"},"title":{"type":"object","name":"Title","id":"p1514","attributes":{"text":"Types of Restaurants","text_font_size":"16pt","align":"center"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1536","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1504","attributes":{"selected":{"type":"object","name":"Selection","id":"p1505","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1506"},"data":{"type":"map","entries":[["index",{"type":"ndarray","array":{"type":"bytes","data":"AwAAAAYAAAAEAAAAAAAAAAcAAAAIAAAACwAAAAUAAAAJAAAADAAAAAoAAAABAAAAAgAAAA0AAAAOAAAA"},"shape":[15],"dtype":"int32","order":"little"}],["Category",{"type":"ndarray","array":["American","Italian","European","Japanese","SE Asian","Chinese","Mexican","Indian","Bakery","Middle Eastern","Cheesesteaks","Korean","Jewish","BBQ","African"],"shape":[15],"dtype":"object","order":"little"}],["Count",{"type":"ndarray","array":{"type":"bytes","data":"FgIAAKoAAABXAAAAVgAAAE4AAABIAAAAPAAAACEAAAAaAAAAFwAAABQAAAASAAAAEQAAAAoAAAAIAAAA"},"shape":[15],"dtype":"int32","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1537","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1538"}}},"glyph":{"type":"object","name":"VBar","id":"p1533","attributes":{"x":{"type":"field","field":"Category"},"width":{"type":"value","value":0.9},"top":{"type":"field","field":"Count"},"line_color":{"type":"value","value":"white"},"fill_color":{"type":"field","field":"Category","transform":{"type":"object","name":"CategoricalColorMapper","id":"p1529","attributes":{"palette":["#1f77b4","#aec7e8","#ff7f0e","#ffbb78","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5","#8c564b","#c49c94","#e377c2","#f7b6d2","#7f7f7f"],"factors":["American","Italian","European","Japanese","SE Asian","Chinese","Mexican","Indian","Bakery","Middle Eastern","Cheesesteaks","Korean","Jewish","BBQ","African"]}}}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p1534","attributes":{"x":{"type":"field","field":"Category"},"width":{"type":"value","value":0.9},"top":{"type":"field","field":"Count"},"line_color":{"type":"value","value":"white"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"field","field":"Category","transform":{"id":"p1529"}},"fill_alpha":{"type":"value","value":0.1},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p1535","attributes":{"x":{"type":"field","field":"Category"},"width":{"type":"value","value":0.9},"top":{"type":"field","field":"Count"},"line_color":{"type":"value","value":"white"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"field","field":"Category","transform":{"id":"p1529"}},"fill_alpha":{"type":"value","value":0.2},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1515","attributes":{"tools":[{"type":"object","name":"HoverTool","id":"p1541","attributes":{"renderers":"auto","tooltips":[["Category","@Category"],["Count","@Count"]]}}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1524","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1525","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1526"},"axis_label":"Count","major_label_policy":{"type":"object","name":"AllLabels","id":"p1527"}}}],"right":[{"type":"object","name":"Legend","id":"p1539","attributes":{"label_text_font_size":"10pt","margin":0,"padding":5,"spacing":2,"items":[{"type":"object","name":"LegendItem","id":"p1540","attributes":{"label":{"type":"field","field":"Category"},"renderers":[{"id":"p1536"}]}}]}}],"below":[{"type":"object","name":"CategoricalAxis","id":"p1519","attributes":{"ticker":{"type":"object","name":"CategoricalTicker","id":"p1520"},"formatter":{"type":"object","name":"CategoricalTickFormatter","id":"p1521"},"axis_label":"Category","major_label_orientation":1.2,"major_label_policy":{"type":"object","name":"AllLabels","id":"p1522"}}}],"center":[{"type":"object","name":"Grid","id":"p1523","attributes":{"axis":{"id":"p1519"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1528","attributes":{"dimension":1,"axis":{"id":"p1524"}}},{"id":"p1539"}]}}]}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('e040d9c3-3599-4eae-a3b8-7c4717db7a7e').textContent;
+              const render_items = [{"docid":"a077360d-988e-49a5-a954-c1b808892552","roots":{"p1507":"dfaa6a54-556f-40f8-906d-f3be782c160e"},"root_ids":["p1507"]}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>
