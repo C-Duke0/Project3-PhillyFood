@@ -50,7 +50,9 @@ At least one paragraph summarizing efforts for ethical considerations made in th
 - The following zip codes showed no results in the dataset, meaning there are no restaurants listed in these areas: `19137`, `19133`, `19141`, `19109`.
 
 
-## Acknowledgments
+## Acknowledgments / References:
 
 - Thanks to Yelp for providing the dataset used in this project.
 - Inspired by various open-source mapping projects.
+- https://opendataphilly.org/- Geojson file for Zipcode map
+- https://htmlcolorcodes.com/colors/- HEX codes for zipcode map
