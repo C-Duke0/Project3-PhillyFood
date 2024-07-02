@@ -1,5 +1,5 @@
 create table yelp_restaurants (
-	business_id varchar(30) not null primary key,
+	business_id varchar(50) not null primary key,
 	name varchar(50) not null,
 	address varchar(100) not null,
 	city varchar(30) not null,
@@ -10,7 +10,8 @@ create table yelp_restaurants (
 	stars real,
 	review_count int,
 	attributes JSONB,
-	Categories varchar(100)
+	Categories varchar(100),
+	price_rating int
 );
 
 
@@ -28,6 +29,7 @@ COPY yelp_restaurants (
   stars,
   review_count,
   attributes,
-  categories
-) FROM '/Users/michael/Bootcamp Repos/Project3-PhillyFood/cleaned_dataset.csv' 
+  categories,
+  price_rating
+) FROM '/Users/michael/Bootcamp Repos/Project3-PhillyFood/yelp_academic_dataset_with_price_rating.csv' 
 CSV HEADER;
