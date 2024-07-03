@@ -23,12 +23,35 @@ header {
   height: 50px; /* Set a fixed height for the header */
 }
 
-/* Additional styles for any other elements on the page */
-.container {
-  padding: 20px;
+/* Search box styles */
+#search-box {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  padding: 10px 0;
+#search-box input {
+  width: 200px;
+  padding: 5px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#search-box button {
+  padding: 5px 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#search-box button:hover {
+  background: #0056b3;
 }

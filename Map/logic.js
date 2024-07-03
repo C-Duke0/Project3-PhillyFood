@@ -41,58 +41,106 @@ function createFeatures(foodData, categories) {
   console.log("Food Data:", foodData);
 
   function onEachFeature(feature, layer) {
-    layer.bindPopup(`<h3>${feature.properties.name}</h3><hr><p>Category: ${feature.properties.category}</p><p>Stars: ${feature.properties.stars}</p>`);
+    const tooltipContent = `<h3>${feature.properties.name}</h3><p>Category: ${feature.properties.category}</p><p>Stars: ${feature.properties.stars}</p>`;
+    layer.bindTooltip(tooltipContent, {
+      permanent: false,
+      direction: 'top',
+      offset: [0, -10],
+      opacity: 0.8,
+    });
+
+    layer.on('mouseover', function (e) {
+      this.openTooltip();
+    });
+
+    layer.on('mouseout', function (e) {
+      this.closeTooltip();
+    });
   }
 
   let foodLayers = {};
-  let colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray", "black", "cyan", "magenta", "lime", "maroon", "navy", "olive"];
+  let heatMapLayers = [];
+  let colors = [
+    "#8B0000", // Dark Red
+    "#00008B", // Dark Blue
+    "#006400", // Dark Green
+    "#0000CD", // Medium Blue
+    "#B22222", // Firebrick
+    "#228B22", // Forest Green
+    "#483D8B", // Dark Slate Blue
+    "#8B4513", // Saddle Brown
+    "#2E8B57", // Sea Green
+    "#8A2BE2", // Blue Violet
+    "#A52A2A", // Brown
+    "#5F9EA0", // Cadet Blue
+    "#8B008B", // Dark Magenta
+    "#2F4F4F", // Dark Slate Gray
+    "#4B0082"  // Indigo
+  ];
 
   categories.forEach((category, i) => {
     let color = colors[i % colors.length];
     console.log(`Processing category: ${category} with color ${color}`);
-    
-    // Define custom icon
-    let iconUrl = `https://leafletjs.com/examples/custom-icons/${color}-dot.png`;
-    let icon = L.icon({
-      iconUrl: iconUrl,
-      iconSize: [25, 41],  // Size of the icon
-      iconAnchor: [12, 41],  // Point of the icon which will correspond to marker's location
-      popupAnchor: [1, -34],  // Point from which the popup should open relative to the iconAnchor
-      shadowUrl: 'https://leafletjs.com/examples/custom-icons/marker-shadow.png',
-      shadowSize: [41, 41]  // Size of the shadow
+
+    // Define custom icon using Leaflet's divIcon and Font Awesome
+    let icon = L.divIcon({
+      html: `<i class="fa fa-cutlery" style="color:${color}; font-size: 20px;"></i>`,
+      className: 'custom-div-icon',
+      iconSize: [40, 56],
+      iconAnchor: [20, 56]
     });
 
     let filteredData = foodData.filter(d => d.properties.category === category);
     console.log(`Filtered Data for ${category}:`, filteredData);
 
+    // Create marker layer
     foodLayers[category] = L.geoJSON(filteredData, {
       pointToLayer: function(feature, latlng) {
         return L.marker(latlng, { icon: icon });
       },
       onEachFeature: onEachFeature
     });
+
+    // Create heatmap layer
+    let heatMapData = filteredData.map(d => [
+      parseFloat(d.geometry.coordinates[1]),
+      parseFloat(d.geometry.coordinates[0]),
+      parseFloat(d.properties.stars)
+    ]);
+
+    heatMapLayers.push({
+      category,
+      data: heatMapData
+    });
   });
 
   console.log("Food layers created:", foodLayers);
-  createMap(foodLayers, colors, categories);
+  createMap(foodLayers, heatMapLayers, colors, categories);
 }
 
-function createMap(foodLayers, colors, categories) {
+function createMap(foodLayers, heatMapLayers, colors, categories) {
   console.log("Creating map...");
+
   let restaurantMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
 
-  let starHeatMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+  let starHeatMapBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   });
+
+  let starHeatMapLayer = L.layerGroup();
 
   let baseMaps = {
     "Restaurant Map": restaurantMap,
-    "Star Heat Map": starHeatMap
+    "Star Heat Map": L.layerGroup([starHeatMapBase, starHeatMapLayer])
   };
 
-  let overlayMaps = foodLayers;
+  let overlayMaps = {};
+
+  categories.forEach((category, i) => {
+    overlayMaps[category] = foodLayers[category];
+  });
 
   let myMap = L.map("map", {
     center: [39.9526, -75.1652],  // Coordinates for Philadelphia
@@ -112,4 +160,114 @@ function createMap(foodLayers, colors, categories) {
   });
 
   console.log("Map created successfully.");
+
+  // Add event listener for the search button
+  document.getElementById("search-btn").addEventListener("click", function() {
+    const zipCode = document.getElementById("zip-code").value;
+    if (zipCode) {
+      searchZipCode(zipCode, myMap);
+    }
+  });
+
+  // Add event listener for base layer change to toggle marker layers
+  myMap.on('baselayerchange', function(event) {
+    if (event.name === "Star Heat Map") {
+      starHeatMapLayer.clearLayers();
+      Object.values(foodLayers).forEach(layer => {
+        myMap.removeLayer(layer);
+      });
+      control._container.querySelectorAll('input[type="checkbox"]').forEach((checkbox, i) => {
+        if (checkbox.checked) {
+          let category = checkbox.nextSibling.textContent.trim();
+          let heatMapData = heatMapLayers.find(h => h.category === category).data;
+          starHeatMapLayer.addLayer(L.heatLayer(heatMapData, {
+            radius: 20,
+            blur: 15,
+            maxZoom: 17,
+            gradient: {
+              0.0: 'blue',
+              0.5: 'lime',
+              1.0: 'red'
+            }
+          }));
+        }
+      });
+    } else {
+      starHeatMapLayer.clearLayers();
+      Object.values(foodLayers).forEach(layer => {
+        myMap.addLayer(layer);
+      });
+      enableCategorySelection();
+    }
+  });
+
+  // Function to enable category selection
+  function enableCategorySelection() {
+    control._container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      checkbox.disabled = false;
+      checkbox.addEventListener('change', checkboxChangeHandler);
+    });
+  }
+
+  // Function to disable category selection
+  function disableCategorySelection() {
+    control._container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      checkbox.disabled = true;
+      checkbox.removeEventListener('change', checkboxChangeHandler);
+    });
+  }
+
+  // Checkbox change handler
+  function checkboxChangeHandler() {
+    if (myMap.hasLayer(starHeatMapBase)) {
+      // Do nothing if Star Heat Map is selected
+    } else {
+      if (this.checked) {
+        let category = this.nextSibling.textContent.trim();
+        myMap.addLayer(foodLayers[category]);
+      } else {
+        let category = this.nextSibling.textContent.trim();
+        myMap.removeLayer(foodLayers[category]);
+      }
+    }
+  }
+
+  // Add event listeners to the category checkboxes to toggle layers based on current base layer
+  control._container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', checkboxChangeHandler);
+  });
+
+  // Function to toggle markers based on current base layer
+  function toggleMarkers() {
+    if (myMap.hasLayer(starHeatMapBase)) {
+      disableCategorySelection();
+      Object.values(foodLayers).forEach(layer => {
+        myMap.removeLayer(layer);
+      });
+    } else {
+      enableCategorySelection();
+    }
+  }
+
+  // Run the check initially
+  toggleMarkers();
+}
+
+// Function to search for zip code and zoom to the location
+function searchZipCode(zipCode, map) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&postalcode=${zipCode}&countrycodes=US`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.length > 0) {
+        const { lat, lon } = data[0];
+        map.setView([lat, lon], 15);  // Zoom to the location
+      } else {
+        alert("Zip code not found");
+      }
+    })
+    .catch(error => {
+      console.error("Error searching zip code:", error);
+      alert("Error searching zip code");
+    });
 }
