@@ -66,7 +66,7 @@ Hover over different zip codes to see a tooltip displaying the top three cuisine
 Choose a zip code of intrest and use your mouse scroll wheel to zoom in and out on the map.
 
 
-**Restaurant Map Layer:**
+#**Restaurant Map Layer:**
 
   Filter by Category:
 
@@ -79,7 +79,7 @@ Select all will either select all categories or deselect all categories allowing
 Hover over different Restaurant markers to show the establishment name, category, and overall rating.
 
 
-***Heat Map Layer:**
+**Heat Map Layer:**
 
 
 
