@@ -57,7 +57,7 @@ We have ensured that all information presented on the map is accurate and fairly
 
 **Zip Code Layer:**
 
-  <u>Mouseover:</u> Hover over different zip codes to see a tooltip displaying the top three cuisines in that area.
+  <u>Mouseover</u>: Hover over different zip codes to see a tooltip displaying the top three cuisines in that area.
 
   Zoom: Choose a zip code of intrest and use your mouse scroll wheel to zoom in and out on the map.
 
