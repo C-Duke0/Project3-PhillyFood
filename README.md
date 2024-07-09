@@ -44,7 +44,6 @@ We ensured that the data collected about businesses, such as addresses, ratings,
 
 We avoided capturing personal data of individuals visiting or reviewing the establishments such as posting user reviews without consent.
 
-
 - Data Source Legitimacy
 
 We verified that all data sources are legitimate and that we had the right to use the data, and we ensured compliance with terms of service for the data obtained from the third-party sources.
@@ -54,7 +53,7 @@ We verified that all data sources are legitimate and that we had the right to us
 We have ensured that all information presented on the map is accurate and fairly represents the businesses, and have avoided any bias that could unfairly harm or benefit particular establishments.
 
 
-### Interacting with the Map
+## Interacting with the Map
 
 - **Mouseover:** Hover over different zip codes to see the top three cuisines in that area.
 - **Zoom:** Click on a zip code to zoom in and explore specific regions more closely.
