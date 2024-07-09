@@ -1,0 +1,51 @@
+/* General styling for the map and elements */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+header {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    height: 50px; /* Set a fixed height for the header */
+}
+
+#map {
+    height: calc(100vh - 50px); /* Full height minus the header height */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Legend styling */
+.info.legend {
+    background: rgb(245, 241, 241);
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    line-height: 18px;
+    color: #555;
+    max-width: 200px;
+}
+
+.info.legend h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.info.legend i {
+    width: 10px;
+    height: 10px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.info.legend .note {
+    word-wrap: break-word;
+    white-space: normal;
+}
