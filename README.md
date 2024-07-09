@@ -80,7 +80,7 @@ To explore different maps, use the radio buttons to toggle between layers:
   Select the category from the legend menu to apply the filter.  
   Select all will either select all categories or deselect all categories allowing you to choose the categories you want brought into focus. 
 
-  #####Mouseover: Hover over different Restaurant markers to show the establishment name, category, and overall rating.
+  ##### Mouseover: Hover over different Restaurant markers to show the establishment name, category, and overall rating.
 
 
 #### **Heat Map Layer:**
