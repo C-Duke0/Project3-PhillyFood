@@ -46,7 +46,7 @@ We avoided capturing personal data of individuals visiting or reviewing the esta
 
 - Data Source Legitimacy
 
-We verified that all data sources are legitimate and that we had the right to use the data, and we ensured compliance with terms of service for the data obtained from the third-party sources.
+We verified that our data sources are legitimate and that we had the right to use the data, and we ensured compliance with terms of service for the data obtained from the third-party sources.
 
 - Accuracy and Fairness
 
@@ -55,7 +55,7 @@ We have ensured that all information presented on the map is accurate and fairly
 
 ## Interacting with the Map
 
-To explore different maps, use the radio buttons to toggle between layers:
+To explore different map views, use the radio buttons to toggle between layers:
 
 1. **Locate the Layer Control Panel:**
    - Find the panel with radio buttons on the top right side of the map.
@@ -66,6 +66,8 @@ To explore different maps, use the radio buttons to toggle between layers:
 
 3. **View the Selected Layer:**
    - The map will update to display the selected layer, highlighting the corresponding food establishments.
+
+### Map Layers: 
 
 #### **Zip Code Layer:**
 
@@ -92,6 +94,7 @@ To explore different maps, use the radio buttons to toggle between layers:
 
 ## Caveats
 
+### Zip Code Layer: 
 - The following zip codes showed no results in the dataset, meaning there are no restaurants listed in these areas: `19137`, `19133`, `19141`, `19109`.
 
 
