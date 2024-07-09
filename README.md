@@ -57,14 +57,14 @@ We have ensured that all information presented on the map is accurate and fairly
 
 To explore different map views, use the radio buttons to toggle between layers:
 
-1. **Locate the Layer Control Panel:**
+**Locate the Layer Control Panel:**
    - Find the panel with radio buttons on the top right side of the map.
 
-2. **Select a Layer:**
+**Select a Layer:**
    - Click on a radio button to select a layer.
    - The available layers include "Restaurant Map by Star Rating," "BakerCuisine by Zip Code," and "Heat Map"
 
-3. **View the Selected Layer:**
+**View the Selected Layer:**
    - The map will update to display the selected layer, highlighting the corresponding food establishments.
 
 ### Map Layers: 
