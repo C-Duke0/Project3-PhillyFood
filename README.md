@@ -67,7 +67,7 @@ To explore different map views, use the radio buttons to toggle between layers:
 **View the Selected Layer:**
    - The map will update to display the selected layer, highlighting the corresponding food establishments.
 
-### Map Layers: 
+### Interacting with the Map Layers: 
 
 #### **Zip Code Layer:**
 
