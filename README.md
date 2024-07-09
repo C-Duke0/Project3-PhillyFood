@@ -34,7 +34,25 @@ The Philadelphia Restaurant Cuisine project aims to visualize restaurant cuisine
 
 ## Ethical Considerations made: 
 
-At least one paragraph summarizing efforts for ethical considerations made in the project
+For the Philadelphia Food Map project,  ethical considerations were addressed to ensure responsible handling of data and interactions with the public. 
+
+Here are some specific ethical considerations for our project:
+
+Privacy and Consent
+
+We ensured that the data collected about businesses, such as addresses, ratings, or owner information, was used responsibly and in compliance with privacy laws.
+
+We avoided capturing personal data of individuals visiting or reviewing the establishments such as posting user reviews without consent.
+
+
+Data Source Legitimacy
+
+We verified that all data sources are legitimate and that we had the right to use the data, and we ensured compliance with terms of service for the data obtained from the third-party sources.
+
+Accuracy and Fairness
+
+We have ensured that all information presented on the map is accurate and fairly represents the businesses, and have avoided any bias that could unfairly harm or benefit particular establishments.
+
 
 
 ### Interacting with the Map
