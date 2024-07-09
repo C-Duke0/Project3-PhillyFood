@@ -55,8 +55,33 @@ We have ensured that all information presented on the map is accurate and fairly
 
 ## Interacting with the Map
 
-- **Mouseover:** Hover over different zip codes to see the top three cuisines in that area.
-- **Zoom:** Click on a zip code to zoom in and explore specific regions more closely.
+**Zip Code Layer:**
+
+  Mouseover:
+
+Hover over different zip codes to see a tooltip displaying the top three cuisines in that area.
+
+  Zoom:
+
+Choose a zip code of intrest and use your mouse scroll wheel to zoom in and out on the map.
+
+
+**Restaurant Map Layer:**
+
+  Filter by Category:
+
+Use the filter options to view specific categories of food establishments (e.g., restaurants, cafes, bakeries).
+Select the category from the legend menu to apply the filter.
+Select all will either select all categories or deselect all categories allowing you to choose the categories you want brought into focus. 
+
+  Mouseover:
+
+Hover over different Restaurant markers to show the establishment name, category, and overall rating.
+
+
+***Heat Map Layer:**
+
+
 
 ## Project Structure
 
