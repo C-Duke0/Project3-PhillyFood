@@ -79,8 +79,8 @@ To explore different map views, use the radio buttons to toggle between layers:
 #### **Restaurant Map Layer:**
 
   ##### Filter by Category: Use the filter options to view specific categories of food establishments (e.g., restaurants, cafes, bakeries).
-  Select the category from the legend menu to apply the filter.  
-  Select all will either select all categories or deselect all categories allowing you to choose the categories you want brought into focus. 
+  Select a category from the legend menu to apply the filter.  
+  "Select All" will either select all categories or deselect all categories allowing you to choose the categories you want brought into focus. 
 
   ##### Mouseover: Hover over different Restaurant markers to show the establishment name, category, and overall rating.
 
