@@ -62,28 +62,28 @@ To explore different maps, use the radio buttons to toggle between layers:
 
 2. **Select a Layer:**
    - Click on a radio button to select a layer.
-   - The available layers include "Restaurant Map by Star Rating," "Cafes," "BakerCuisine by Zip Code," and "Heat Map"
+   - The available layers include "Restaurant Map by Star Rating," "BakerCuisine by Zip Code," and "Heat Map"
 
 3. **View the Selected Layer:**
    - The map will update to display the selected layer, highlighting the corresponding food establishments.
 
-### **Zip Code Layer:**
+#### **Zip Code Layer:**
 
-  #### Mouseover: Hover over different zip codes to see a tooltip displaying the top three cuisines in that area.
+  ##### Mouseover: Hover over different zip codes to see a tooltip displaying the top three cuisines in that area.
 
-  #### Zoom: Choose a zip code of intrest and use your mouse scroll wheel to zoom in and out on the map.
+  ##### Zoom: Choose a zip code of intrest and use your mouse scroll wheel to zoom in and out on the map.
 
 
-### **Restaurant Map Layer:**
+#### **Restaurant Map Layer:**
 
-  #### Filter by Category: Use the filter options to view specific categories of food establishments (e.g., restaurants, cafes, bakeries).
+  ##### Filter by Category: Use the filter options to view specific categories of food establishments (e.g., restaurants, cafes, bakeries).
   Select the category from the legend menu to apply the filter.  
   Select all will either select all categories or deselect all categories allowing you to choose the categories you want brought into focus. 
 
-  #### Mouseover: Hover over different Restaurant markers to show the establishment name, category, and overall rating.
+  #####Mouseover: Hover over different Restaurant markers to show the establishment name, category, and overall rating.
 
 
-### **Heat Map Layer:**
+#### **Heat Map Layer:**
 
 
 
