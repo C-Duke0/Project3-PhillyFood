@@ -87,9 +87,9 @@ To explore different map views, use the radio buttons to toggle between layers:
 
 #### **Heat Map Layer:**
 
+ - ##### Mouseover: Hover over different neighborhood to see a tooltip displaying the average review count and number of restaurants in that area.
 
-
-## Project Structure
+  - ##### Zoom: Choose a neighborhood of intrest and use your mouse scroll wheel to zoom in and out on the map.
 
 
 ## Caveats
