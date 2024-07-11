@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    var map = L.map('map').setView([39.9926, -75.1652], 11);
-    var geojsonLayer, restaurantLayers = {}, heatMapLayers = [];
-    var cuisineLegend, restaurantLegend, heatMapLegend;
+    var map = L.map('map').setView([39.9926, -75.1652], 12);
+    var geojsonLayer, restaurantLayers = {}, reviewLayer;
+    var cuisineLegend, restaurantLegend, reviewLegend;
     var cuisineData = [];
     var categories = []; // To store categories
+    var restaurantLayerGroup;
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
@@ -38,13 +39,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return div;
         };
 
-        heatMapLegend = L.control({ position: 'bottomright' });
-        heatMapLegend.onAdd = function (map) {
-            var div = L.DomUtil.create('div', 'info legend');
-            div.innerHTML += '<h4>Heat Map</h4>';
-            div.innerHTML += '<p>Legend for Heat Map</p>';
+        reviewLegend = L.control({ position: 'bottomright' });
+        reviewLegend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend'),
+                grades = [0, 200, 400, 600, 800, 1000, 1200],
+                labels = [],
+                from, to;
+
+            div.innerHTML += '<h4>Average Reviews</h4>'; // Add a title to the legend
+
+            for (var i = 0; i < grades.length; i++) {
+                from = grades[i];
+                to = grades[i + 1];
+
+                labels.push(
+                    '<i style="background:' + getReviewColor(from + 1) + '"></i> ' +
+                    from + (to ? '&ndash;' + to : '+'));
+            }
+
+            div.innerHTML += labels.join('<br>');
             return div;
-        };
+        }
     }
 
     function getColor(cuisine) {
@@ -66,6 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'SE Asian': return '#DA70D6';
             default: return '#B2BEB5';
         }
+    }
+
+    function getReviewColor(d) {
+        return d > 1200 ? '#800026' :
+               d > 1000 ? '#BD0026' :
+               d > 800  ? '#E31A1C' :
+               d > 600  ? '#FC4E2A' :
+               d > 400  ? '#FD8D3C' :
+               d > 200  ? '#FEB24C' :
+               d > 0    ? '#FFEDA0' :
+                          '#B2BEB5';
     }
 
     function style(feature) {
@@ -129,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             categories = [...new Set(data.map(d => d.Categories))].filter(c => c); // Store categories globally
             console.log("Categories extracted:", categories);
-
             let geoData = data.map(row => ({
                 type: "Feature",
                 properties: {
@@ -171,9 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.closeTooltip();
             });
         }
-
+    
         let foodLayers = {};
-        let heatMapLayers = [];
         let colors = [
             "#8B0000", "#00008B", "#006400", "#0000CD", "#B22222", "#228B22", "#483D8B", "#8B4513",
             "#2E8B57", "#8A2BE2", "#A52A2A", "#5F9EA0", "#8B008B", "#2F4F4F", "#4B0082"
@@ -199,157 +223,199 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 onEachFeature: onEachFeature
             });
-
-            let heatMapData = filteredData.map(d => [
-                parseFloat(d.geometry.coordinates[1]),
-                parseFloat(d.geometry.coordinates[0]),
-                parseFloat(d.properties.stars)
-            ]);
-
-            heatMapLayers.push({
-                category,
-                data: heatMapData
-            });
         });
 
         console.log("Food layers created:", foodLayers);
         initializeLayers(foodLayers, heatMapLayers, colors, categories);
     }
 
-    function initializeLayers(foodLayers, heatMapLayers, colors, categories) {
+    function initializeLayers(foodLayers, colors, categories) {
         console.log("Initializing layers...");
 
-        let restaurantLayerGroup = L.layerGroup(Object.values(foodLayers));
-        let starHeatMapLayer = L.layerGroup();
+        restaurantLayerGroup = L.layerGroup(Object.values(foodLayers));
 
-        let baseMaps = {
-            "Cuisine by Zip Code": geojsonLayer,
-            "Restaurant Map": restaurantLayerGroup,
-            "Heat Map": starHeatMapLayer
-        };
-
-        let control = L.control.layers(baseMaps, null, {
-            collapsed: false
-        }).addTo(map);
-
-        // Initially add geojsonLayer to the map
-        geojsonLayer.addTo(map);
-        cuisineLegend.addTo(map);  // Add the initial legend
-
-        map.on('baselayerchange', function(event) {
-            map.removeControl(cuisineLegend);
-            map.removeControl(restaurantLegend);
-            map.removeControl(heatMapLegend);
-
-            if (event.name === "Heat Map") {
-                starHeatMapLayer.clearLayers();
-                Object.values(foodLayers).forEach(layer => {
-                    map.removeLayer(layer);
+        // Load the merged GeoJSON data for reviews
+        fetch('Static/merged_geojson.json')
+            .then(response => response.json())
+            .then(data => {
+                // Get the range of average review counts
+                let averageReviewCounts = data.features.map(f => f.properties.average_review_count);
+                let maxReviewCount = Math.max(...averageReviewCounts);
+                let minReviewCount = Math.min(...averageReviewCounts);
+      
+                // Define the style for the choropleth
+                function style(feature) {
+                    return {
+                        fillColor: getReviewColor(feature.properties.average_review_count),
+                        weight: 0.5,
+                        opacity: 1,
+                        color: 'black',
+                        dashArray: '',
+                        fillOpacity: 0.7
+                    };
+                }
+                
+                // Add the GeoJSON layer for reviews
+                reviewLayer = L.geoJson(data, {
+                    style: style,
+                    onEachFeature: function (feature, layer) {
+                        layer.bindTooltip('<b>Neighborhood:</b> ' + feature.properties.name + '<br>' +
+                            '<b>Average Reviews:</b> ' + feature.properties.average_review_count + '<br>' +
+                            '<b>Restaurant Count:</b> ' + feature.properties.restaurant_count);
+                    }
                 });
-                heatMapLayers.forEach(layer => {
-                    starHeatMapLayer.addLayer(L.heatLayer(layer.data, {
-                        radius: 20,
-                        blur: 15,
-                        maxZoom: 17,
-                        gradient: {
-                            0.0: 'blue',
-                            0.5: 'lime',
-                            1.0: 'red'
-                        }
-                    }));
+
+                let baseMaps = {
+                    "Cuisine by Zip Code": geojsonLayer,
+                    "Restaurant Map": restaurantLayerGroup,
+                    "Heat Map by Neighborhood": reviewLayer
+                };
+
+                let control = L.control.layers(baseMaps, null, {
+                    collapsed: false
+                }).addTo(map);
+
+                // Initially add geojsonLayer to the map
+                geojsonLayer.addTo(map);
+                cuisineLegend.addTo(map);  // Add the initial legend
+
+                map.on('baselayerchange', function(event) {
+                    map.removeControl(cuisineLegend);
+                    map.removeControl(restaurantLegend);
+                    map.removeControl(heatMapLegend);
+
+                    if (event.name === "Restaurant Map") {
+                        map.addLayer(restaurantLayerGroup);
+                        restaurantLegend.addTo(map);
+                        addCategoryFilters(foodLayers); // Call addCategoryFilters when Restaurant Map is selected
+                    } else if (event.name === "Cuisine by Zip Code") {
+                        map.addLayer(geojsonLayer);
+                        cuisineLegend.addTo(map);
+                    } else if (event.name === "Heat Map by Neighborhood") {
+                        map.addLayer(reviewLayer);
+                        reviewLegend.addTo(map);
+                    }
                 });
-                heatMapLegend.addTo(map);
-            } else if (event.name === "Restaurant Map") {
-                starHeatMapLayer.clearLayers();
-                map.addLayer(restaurantLayerGroup);
-                restaurantLegend.addTo(map);
-                addCategoryFilters(foodLayers); // Call addCategoryFilters when Restaurant Map is selected
-            } else if (event.name === "Cuisine by Zip Code") {
-                starHeatMapLayer.clearLayers();
+
+                // Set initial layer and legend
+                document.getElementById('cuisine').checked = true;
                 map.addLayer(geojsonLayer);
                 cuisineLegend.addTo(map);
-            }
-        });
-    }
+            })
+            .catch(error => console.error('Error loading merged GeoJSON data:', error));
+        }
 
-    function addCategoryFilters(foodLayers) {
-        const selectAllCheckbox = document.getElementById('select-all');
-        const categoryCheckboxes = document.querySelectorAll('.category-filter');
-
-        selectAllCheckbox.addEventListener('change', function () {
-            const isChecked = this.checked;
-            categoryCheckboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
-            });
-
-            Object.keys(foodLayers).forEach(category => {
-                if (isChecked) {
-                    map.addLayer(foodLayers[category]);
-                } else {
-                    map.removeLayer(foodLayers[category]);
-                }
-            });
-        });
-
-        categoryCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
-
+        function addCategoryFilters(foodLayers) {
+            const selectAllCheckbox = document.getElementById('select-all');
+            const categoryCheckboxes = document.querySelectorAll('.category-filter');
+    
+            selectAllCheckbox.addEventListener('change', function () {
+                const isChecked = this.checked;
+                categoryCheckboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+    
                 Object.keys(foodLayers).forEach(category => {
-                    if (selectedCategories.includes(category)) {
+                    if (isChecked) {
                         map.addLayer(foodLayers[category]);
                     } else {
                         map.removeLayer(foodLayers[category]);
                     }
                 });
+            });
+    
+            categoryCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+    
+                    Object.keys(foodLayers).forEach(category => {
+                        if (selectedCategories.includes(category)) {
+                            map.addLayer(foodLayers[category]);
+                        } else {
+                            map.removeLayer(foodLayers[category]);
+                        }
+                    });
+    
+                    if (selectedCategories.length === categoryCheckboxes.length) {
+                        selectAllCheckbox.checked = true;
+                    } else {
+                        selectAllCheckbox.checked = false;
+                    }
+                });
+            });
+        }
 
-                if (selectedCategories.length === categoryCheckboxes.length) {
-                    selectAllCheckbox.checked = true;
-                } else {
-                    selectAllCheckbox.checked = false;
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle({
+                weight: 5,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+    
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+    
+            var cuisine = 'Unknown';
+            if (cuisineData) {
+                var cuisineInfo = cuisineData.find(d => d.postal_code == layer.feature.properties.CODE);
+                cuisine = cuisineInfo ? cuisineInfo.most_common_cuisine : 'Unknown';
+            }
+            var first = cuisineInfo ? cuisineInfo.most_common_cuisine : 'Unknown';
+            var second = cuisineInfo && cuisineInfo.second_most_common_cuisine ? cuisineInfo.second_most_common_cuisine : 'N/A';
+            var third = cuisineInfo && cuisineInfo.third_most_common_cuisine ? cuisineInfo.third_most_common_cuisine : 'N/A';
+            var popupContent = `
+                <b>Zip Code: ${layer.feature.properties.CODE}</b><br>
+                1st Most Common: ${first}<br>
+                2nd Most Common: ${second}<br>
+                3rd Most Common: ${third}
+            `;
+            layer.bindPopup(popupContent).openPopup();
+        }
+    
+        function resetHighlight(e) {
+            geojsonLayer.resetStyle(e.target);
+            e.target.closePopup();
+        }
+    
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+    
+        initializeLegends();
+    
+        // Radio button change event
+        document.querySelectorAll('input[name="layer"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                map.eachLayer(layer => {
+                    if (layer !== geojsonLayer && layer !== restaurantLayerGroup && layer !== reviewLayer) {
+                        map.removeLayer(layer);
+                    }
+                });
+                map.removeControl(cuisineLegend);
+                map.removeControl(restaurantLegend);
+                map.removeControl(reviewLegend);
+    
+                if (this.value === 'cuisine') {
+                    map.addLayer(geojsonLayer);
+                    cuisineLegend.addTo(map);
+                } else if (this.value === 'restaurant') {
+                    map.addLayer(restaurantLayerGroup);
+                    restaurantLegend.addTo(map);
+                    addCategoryFilters(foodLayers);
+                } else if (this.value === 'review') {
+                    map.addLayer(reviewLayer);
+                    reviewLegend.addTo(map);
                 }
             });
         });
-    }
-
-    function highlightFeature(e) {
-        var layer = e.target;
-        layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
-
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront();
-        }
-
-        var cuisine = 'Unknown';
-        if (cuisineData) {
-            var cuisineInfo = cuisineData.find(d => d.postal_code == layer.feature.properties.CODE);
-            cuisine = cuisineInfo ? cuisineInfo.most_common_cuisine : 'Unknown';
-        }
-        var first = cuisineInfo ? cuisineInfo.most_common_cuisine : 'Unknown';
-        var second = cuisineInfo && cuisineInfo.second_most_common_cuisine ? cuisineInfo.second_most_common_cuisine : 'N/A';
-        var third = cuisineInfo && cuisineInfo.third_most_common_cuisine ? cuisineInfo.third_most_common_cuisine : 'N/A';
-        var popupContent = `
-            <b>Zip Code: ${layer.feature.properties.CODE}</b><br>
-            1st Most Common: ${first}<br>
-            2nd Most Common: ${second}<br>
-            3rd Most Common: ${third}
-        `;
-        layer.bindPopup(popupContent).openPopup();
-    }
-
-    function resetHighlight(e) {
-        geojsonLayer.resetStyle(e.target);
-        e.target.closePopup();
-    }
-
-    function zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
-    }
-
-    initializeLegends();
-});
+    
+        loadCSVData();
+        initializeLegends();
+        // Set initial layer and legend
+       // document.getElementById('cuisine').checked = true;
+        //map.addLayer(geojsonLayer);
+        //cuisineLegend.addTo(map);
+    });
