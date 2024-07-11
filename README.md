@@ -101,6 +101,8 @@ To explore different map views, use the radio buttons to toggle between layers:
 ## Acknowledgments / References:
 
 - Thanks to Yelp for providing the dataset used in this project.
+- Data Source: https://www.yelp.com/dataset
 - Inspired by various open-source mapping projects.
 - https://opendataphilly.org/- Geojson file for Zipcode map
 - https://htmlcolorcodes.com/colors/- HEX codes for zipcode map
+- https://github.com/blackmad/neighborhoods/blob/master/philadelphia.geojson - Geojson for Neighborhood map
