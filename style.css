@@ -111,3 +111,35 @@ header {
     word-wrap: break-word;
     white-space: normal;
 }
+/* Style the radio buttons */
+.leaflet-control-layers input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Style the labels */
+.leaflet-control-layers label {
+    font-size: 18px;
+    vertical-align: middle;
+}
+#controls {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.large-radio {
+    display: block;
+    font-size: 14px;
+}
+
+.large-radio input[type="radio"] {
+    margin-right: 10px;
+}
