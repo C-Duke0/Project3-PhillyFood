@@ -96,7 +96,7 @@ To explore different map views, use the radio buttons to toggle between layers:
 
 ### Zip Code Layer: 
 - The following zip codes showed no results in the dataset, meaning there are no restaurants listed in these areas: `19137`, `19133`, `19141`, `19109`.
-
+- We did not obtain restaurant data for numernous neighborhoods in Philadelphia.
 
 ## Acknowledgments / References:
 
