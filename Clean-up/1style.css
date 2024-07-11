@@ -49,17 +49,3 @@ header {
     word-wrap: break-word;
     white-space: normal;
 }
-
-/* Style the radio buttons */
-.leaflet-control-layers input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    vertical-align: middle;
-}
-
-/* Style the labels */
-.leaflet-control-layers label {
-    font-size: 18px;
-    vertical-align: middle;
-}
