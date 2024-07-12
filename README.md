@@ -20,7 +20,7 @@ The Philadelphia Restaurant Cuisine project aims to visualize restaurant cuisine
 
 ## Features
 
-- Interactive map displaying the most common cuisines by zip code, Review count by neighborhood, and Restaurant by location.
+- Interactive map displaying the most common cuisines by zip code, Review count by neighborhood, and restaurant by location.
 - Mouseover tooltips providing detailed information on the top three cuisines for each area.
 - Color-coded legend for easy identification of cuisine types.
 - Zoom functionality for in-depth exploration of specific regions.
