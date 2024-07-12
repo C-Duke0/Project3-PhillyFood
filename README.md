@@ -104,6 +104,8 @@ To explore different map views, use the radio buttons to toggle between layers:
 - **Leaflet.js**: For creating interactive maps.
 - **PostgreSQL**: For managing and querying the database.
 - **GeoJSON**: For encoding geographic data structures.
+- **SQLAlchemy**: For object relational mapping.
+- **Psycopg2**: For database adapting.
 
 #### Web Development
 - **HTML5**: For structuring the content.
