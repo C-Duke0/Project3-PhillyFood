@@ -1,3 +1,12 @@
+-- create table schema for tables 
+create table cheesesteak_restaurants (
+	location varchar(50) not null primary key,
+	reviews int,
+	ratings float,
+	cost float,
+	value float
+);
+
 create table yelp_restaurants (
 	business_id varchar(50) not null primary key,
 	name varchar(50) not null,
@@ -14,8 +23,11 @@ create table yelp_restaurants (
 	price_rating int
 );
 
+-- Adjusts data type of values in attributes column in the yelp_restaurants table
 ALTER TABLE yelp_restaurants ALTER COLUMN attributes TYPE TEXT;
 
+
+-- Imports data into database
 COPY yelp_restaurants (
   business_id,
   name,
