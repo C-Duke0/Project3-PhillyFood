@@ -97,29 +97,29 @@ To explore different map views, use the radio buttons to toggle between layers:
 - The following zip codes showed no results in the dataset, meaning there are no restaurants listed in these areas: `19137`, `19133`, `19141`, `19109`.
 - We did not obtain restaurant data for numernous neighborhoods in Philadelphia.
 
-## Tools Used in This Project
+### Tools Used in This Project
 
-### Data Processing and Analysis
+#### Data Processing and Analysis
 - **D3.js**: For data visualization and manipulation.
 - **Leaflet.js**: For creating interactive maps.
 - **PostgreSQL**: For managing and querying the database.
 - **GeoJSON**: For encoding geographic data structures.
 
-### Web Development
+#### Web Development
 - **HTML5**: For structuring the content.
 - **CSS**: For styling and layout.
 - **JavaScript**: For interactivity and dynamic content.
 
-### Libraries and Frameworks
+#### Libraries and Frameworks
 - **Leaflet Heat**: For creating heat maps.
 - **Font Awesome**: For using icons in the project.
 - **OpenStreetMap**: For providing map tiles.
 
-### APIs and External Services
+#### APIs and External Services
 - **OpenStreetMap API**: For fetching map data.
 - **Nominatim API**: For geocoding and reverse geocoding.
 
-### Development Tools
+#### Development Tools
 - **Visual Studio Code**: For code editing and development.
 - **GitHub**: For repository hosting and collaboration.
   
