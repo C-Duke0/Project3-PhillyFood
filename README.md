@@ -20,7 +20,7 @@ The Philadelphia Restaurant Cuisine project aims to visualize restaurant cuisine
 
 ## Features
 
-- Interactive map displaying the most common cuisines by zip code.
+- Interactive map displaying the most common cuisines by zip code, Review count by neighborhood, and Restaurant by location.
 - Mouseover tooltips providing detailed information on the top three cuisines for each area.
 - Color-coded legend for easy identification of cuisine types.
 - Zoom functionality for in-depth exploration of specific regions.
@@ -102,7 +102,6 @@ To explore different map views, use the radio buttons to toggle between layers:
 
 - Thanks to Yelp for providing the dataset used in this project.
 - Data Source: https://www.yelp.com/dataset
-- Inspired by various open-source mapping projects.
 - https://opendataphilly.org/- Geojson file for Zipcode map
 - https://htmlcolorcodes.com/colors/- HEX codes for zipcode map
 - https://github.com/blackmad/neighborhoods/blob/master/philadelphia.geojson - Geojson for Neighborhood map
