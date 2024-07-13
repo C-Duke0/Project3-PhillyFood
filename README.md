@@ -20,15 +20,15 @@ The Philadelphia Restaurant Cuisine project aims to visualize restaurant cuisine
 
 ## Features
 
-- Interactive map displaying the most common cuisines by zip code.
-- Mouseover tooltips providing detailed information on the top three cuisines for each area.
-- Color-coded legend for easy identification of cuisine types.
+- Interactive map displaying the most common cuisines by zip code, review count by neighborhood, and restaurant by location.
+- Mouseover tooltips providing detailed information for each area.
+- Color-coded legend for easy identification of cuisine types, average review, and category selection.
 - Zoom functionality for in-depth exploration of specific regions.
 
 ## Data Sources
 
 - **Yelp Academic Dataset:** Provides information on restaurants and their respective cuisines.
-- **GeoJSON:** Used to define the geographical boundaries of Philadelphia's zip codes.
+- **GeoJSON:** Used to define the geographical boundaries of Philadelphia's zip codes and neighborhoods.
 
 ## Getting Started
 
@@ -85,24 +85,51 @@ To explore different map views, use the radio buttons to toggle between layers:
   - ##### Mouseover: Hover over different Restaurant markers to show the establishment name, category, and overall rating.
 
 
-#### **Heat Map Layer:**
+#### **Heat Map by Neighborhood Layer:**
 
+ - ##### Mouseover: Hover over different neighborhood to see a tooltip displaying the average review count and number of restaurants in that area.
 
-
-## Project Structure
-
+  - ##### Zoom: Choose a neighborhood of intrest and use your mouse scroll wheel to zoom in and out on the map.
 
 ## Caveats
 
 ### Zip Code Layer: 
 - The following zip codes showed no results in the dataset, meaning there are no restaurants listed in these areas: `19137`, `19133`, `19141`, `19109`.
+- We did not obtain restaurant data for numernous neighborhoods in Philadelphia.
 
+### Tools Used in This Project:
 
+#### Data Processing and Analysis
+- **D3.js**: For data visualization and manipulation.
+- **Leaflet.js**: For creating interactive maps.
+- **PostgreSQL**: For managing and querying the database.
+- **GeoJSON**: For encoding geographic data structures.
+- **SQLAlchemy**: For object relational mapping.
+- **Psycopg2**: For database adapting.
+
+#### Web Development
+- **HTML5**: For structuring the content.
+- **CSS**: For styling and layout.
+- **JavaScript**: For interactivity and dynamic content.
+
+#### Libraries and Frameworks
+- **Leaflet Heat**: For creating heat maps.
+- **Font Awesome**: For using icons in the project.
+- **OpenStreetMap**: For providing map tiles.
+
+#### APIs and External Services
+- **OpenStreetMap API**: For fetching map data.
+- **Nominatim API**: For geocoding and reverse geocoding.
+
+#### Development Tools
+- **Visual Studio Code**: For code editing and development.
+- **GitHub**: For repository hosting and collaboration.
+  
 ## Acknowledgments / References:
 
 - Thanks to Yelp for providing the dataset used in this project.
 - Data Source: https://www.yelp.com/dataset
-- Inspired by various open-source mapping projects.
 - https://opendataphilly.org/- Geojson file for Zipcode map
 - https://htmlcolorcodes.com/colors/- HEX codes for zipcode map
 - https://github.com/blackmad/neighborhoods/blob/master/philadelphia.geojson - Geojson for Neighborhood map
+- This project utilized OpenAI's GPT-4 model to provide trouble shooting solutions during the development process. 

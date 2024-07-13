@@ -21,24 +21,62 @@
 
 <body>
     <div id="start-page">
-        <h1>Welcome to the Food Map of Philadelphia</h1>
+        <h1>Tastes of Philadelphia</h1>
+        <!-- <img src="Images/cheesesteak.avif" alt="Philadelphia Cheesesteak" class="header-image"> <!-- AI Generated: Credit: Image by artblog201 on Freepik-->
         <h2>Michael Andia | Blake Bartlett | Christopher Duke | Tim McCarthy | Krissina Wells</h2>
-        <img src="Files/cheesesteak.avif" alt="Philadelphia Cheesesteak" class="header-image"> <!-- AI Generated: Credit: Image by artblog201 on Freepik-->
+        <h3>This food map is a project conceptualized, designed, and developed to show different visualizations of the foods
+            available in Philadelphia.<br>
+            <ul>
+                <li>Dataset was courtesy of Yelp.</li>
+                <li>Our focus was on items that had a rating of 3.5 stars or greater. </li>
+                <li>Data was cleaned to combine similar food types for a more manageable dataset.</li>
+                <li>Map was generated using Leaflet to show foods by:</li>
+                <ul>
+                    <li>Type of food</li>
+                    <li>Foods by neighborhood or Zip Code</li>
+                    <li>Restaurant ratings</li>
+                </ul>
+                <li>Charts were also generated to show a number of visualizations.</li>
+            </ul>
+        </h3>
+        <hr>
         <div class="thumbnail-container">
             <div class="thumbnail-item">
-                <img class="start-thumbnail" src="Files/map_home.png" alt="Map Thumbnail">
-                <div class="view-text">View Map</div>
-            </div>
-            <div class="thumbnail-item">
-                <img class="start-thumbnail" src="Files/chart_home.png" alt="Chart Thumbnail">
-                <div class="view-text">View Charts</div>
+                <div class="image-wrapper">
+                    <img class="start-thumbnail" src="Images/map_home.png" alt="Map Thumbnail">
+                </div>
+                <div class="view-text">Interactive Food Map of Philadelphia</div>
             </div>
         </div>
+        
+        <div class="thumbnail-container">
+            <div class="thumbnail-item">
+                <div class="image-wrapper">
+                    <img class="start-thumbnail" src="Images/boxplot.png" alt="Boxplot">
+                </div>
+                <div class="view-text">Boxplot of rating by price point</div>
+            </div>
+        </div>
+        <div class="thumbnail-container">
+            <div class="thumbnail-item">
+                <div class="image-wrapper">
+                    <img class="start-thumbnail" src="Images/ParetoOfFoodTypes.png" alt="Boxplot">
+                </div>
+                <div class="view-text">Pareto of food types</div>
+            </div>
+        </div>      
+        <div class="thumbnail-container">
+            <div class="thumbnail-item">
+                <div class="image-wrapper">
+                    <img class="start-thumbnail" src="Images/cheesesteakchart.png" alt="Boxplot">
+                </div>
+                <div class="view-text">Most popular cheesesteak joints</div>
+            </div>
+        </div>       
     </div>
     <div id="map-container">
         <button id="back-button">Back to Home</button>
         <div id="map"></div>
-        
     </div>
 
     <!-- Leaflet JS -->
@@ -52,15 +90,19 @@
     <script>
         document.querySelector('.thumbnail-item:first-child').addEventListener('click', function() {
             document.getElementById('start-page').style.display = 'none';
-            document.getElementById('map-container').style.display = 'block';
+            document.getElementById('map-container').style.visibility = 'visible';
             document.getElementById('controls').style.display = 'block';
         });
         document.getElementById('back-button').addEventListener('click', function() {
-            document.getElementById('map-container').style.display = 'none';
+            document.getElementById('map-container').style.visibility = 'hidden';
             document.getElementById('start-page').style.display = 'block';
             document.getElementById('start-page').style.display = 'block';
     });
     </script>
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+      </div>
 </body>
 
 </html>

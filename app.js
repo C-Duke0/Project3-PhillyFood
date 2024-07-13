@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+    var modal = document.getElementById('imageModal');
+    var modalImg = document.getElementById('modalImage');
+    var closeBtn = document.getElementsByClassName('close')[0];
     const map = L.map('map').setView([39.9926, -75.1652], 12);
     let geojsonLayer, restaurantLayerGroup, reviewLayer;
     let cuisineLegend, restaurantLegend, reviewLegend;
     let cuisineData = [];
     let categories = [];
-
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
@@ -335,4 +338,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return initializeLayers(foodLayers);
         })
         .catch(error => console.error('Error in initialization:', error));
+
+    // Get all thumbnail items except the first one (map_home)
+    var thumbnails = Array.from(document.querySelectorAll('.thumbnail-item')).slice(1);
+
+    thumbnails.forEach(function(thumbnail) {
+        thumbnail.addEventListener('click', function() {
+            var imgSrc = this.querySelector('img').src;
+            modal.style.display = 'block';
+            modalImg.src = imgSrc;
+        });
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
 });
